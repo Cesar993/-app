@@ -6,6 +6,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
 import Index, {loader as kanjiLoader} from './Paginas/Index'
 import FrontEnd from './Paginas/FrontEnd'
+import Reading, { loader as readingLoader } from './Paginas/Reading'
 
 
 const router = createBrowserRouter(
@@ -19,6 +20,11 @@ const router = createBrowserRouter(
           loader: kanjiLoader,
           element: <Index/>
         },
+        {
+          path:'reading',
+          loader: readingLoader,
+          element: <Reading/>
+        }
       ]
     }
   ]

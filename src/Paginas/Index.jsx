@@ -18,8 +18,8 @@ const Index = () => {
 
 
 
-
-  const { kanjisData, respuestasData } = useLoaderData() || [];
+const { kanjisData, respuestasData } = useLoaderData() || [];
+  
 
   const [pregunta, setPregunta] = useState(0)
   const [respuestaCorrecta, setRespuestaCorrecta] = useState()
@@ -27,6 +27,9 @@ const Index = () => {
   const [finalizado, setFinalizado] = useState(false)
   const [respuestasMezcaldas, setRespuestasMezcaldas] = useState([])
   const kanjiActual = kanjisData[pregunta];
+
+  const [correctas, setCorrectas] = useState(0);
+  const [totalPregunta, setTotalPregunta] = useState(0);
 
   console.log(kanjiActual)
 
@@ -37,7 +40,8 @@ const Index = () => {
   useEffect(() => {
     const respuestasFiltradas = respuestasData.filter((respuesta) => respuesta.kanji_id ===
       kanjiActual?.id)
-
+    
+      setTotalPregunta(kanjisData.length)
 
     setRespuestasMezcaldas(respuestasFiltradas.sort(() => Math.random() - 0.5))
 
@@ -50,6 +54,7 @@ const Index = () => {
     if (respuestaCorrecta === 'true') {
       console.log(respuestaCorrecta)
       setAlert({ correcta: 'true' });
+      setCorrectas(correctas+1)
 
       setTimeout(() => {
         if (pregunta + 1 < kanjisData.length) {
@@ -86,9 +91,11 @@ const Index = () => {
 
   return (
     <>
-      <section className='flex justify-center mb-10 mt-10'>
-
-        <div className='h-96  border-2 border-y-gray-300 w-3/4 flex justify-center items-center flex-col'>
+      <section className='flex justify-center mb-10 mt-10 h-screen'>
+        <div className='h-3/6  border-2 border-y-gray-300 w-3/4 flex justify-center items-center flex-col'>
+        <div>
+          <h1>Correctas {correctas} de {totalPregunta}</h1>
+        </div>
           {finalizado ? (
             <Mensaje />
           ) : (
