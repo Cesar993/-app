@@ -31,6 +31,8 @@ const { kanjisData, respuestasData } = useLoaderData() || [];
   const [correctas, setCorrectas] = useState(0);
   const [totalPregunta, setTotalPregunta] = useState(0);
 
+  const [explicacionActual, setExplicacionActual] = useState(null);
+
   console.log(kanjiActual)
 
   //filtramos las respuestas para que sean solo las con id del mismo kanji
@@ -66,7 +68,7 @@ const { kanjisData, respuestasData } = useLoaderData() || [];
 
         setRespuestaCorrecta(null);
         setAlert(null);
-      }, 2000)
+      }, 7000)
     } else {
       setAlert({ correcta: 'false' });
 
@@ -74,7 +76,7 @@ const { kanjisData, respuestasData } = useLoaderData() || [];
 
         setRespuestaCorrecta(null);
         setAlert(null);
-      }, 1000)
+      }, 800)
 
     };
     // cambiar la pregunta con tiempo
@@ -83,16 +85,16 @@ const { kanjisData, respuestasData } = useLoaderData() || [];
 
 
 
-  const handleChange = (e) => {
+  const handleChange = (e, explicacion) => {
     setRespuestaCorrecta(e.target.value);
-
-
+    setExplicacionActual(explicacion);
+    console.log(explicacion)
   }
 
   return (
     <>
       <section className='flex justify-center mb-10 mt-10 h-screen'>
-        <div className='h-3/6  border-2 border-y-gray-300 w-3/4 flex justify-center items-center flex-col'>
+        <div className='h-4/6  border-2 border-y-gray-300 w-3/4 flex justify-center items-center flex-col'>
         <div>
           <h1>Correctas {correctas} de {totalPregunta}</h1>
         </div>
@@ -118,7 +120,7 @@ const { kanjisData, respuestasData } = useLoaderData() || [];
                           key={respuesta.id} className='m-4'
                           value={respuesta.correcta}
                           name='respuesta'
-                          onChange={handleChange}
+                          onChange={(e) => handleChange(e, respuesta.explicacion)}
                         />
                         {respuesta.respuesta}
                       </label>
@@ -135,10 +137,16 @@ const { kanjisData, respuestasData } = useLoaderData() || [];
               <button onClick={handleCmabiarPregunta} className='bg-lime-dark text-white'>Comprobar</button>
               {alert && (
                 (alert?.correcta === 'true') ?
-                  (<Alert textoTitulo="¡Muy Bien! " texto="Respuesta correcta" color="lime" />) :
+                  (
+                    <>
+                    <Alert textoTitulo="¡Muy Bien! " texto="Respuesta correcta" color="lime" />
+                    <p className='p-2'>{explicacionActual}</p>
+                    </>
+
+                  ) :
+                  
                   (<Alert textoTitulo="¡Muy Mal! " texto="Respuesta incorrecta" color="red" />)
               )}
-
             </div>)}
         </div>
 
