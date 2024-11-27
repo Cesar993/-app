@@ -2,33 +2,35 @@ import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Preguntas from '../components/Preguntas';
 
-import { kanjis, respuestas } from '../datos/datos';
+import { preguntas, respuestas } from '../datos/datosBunpo';
 
 
 export function loader() {
-    const kanjisData = kanjis;
+    const preguntasData = preguntas;
     const respuestasData = respuestas;
-    return { kanjisData, respuestasData };
+    return { preguntasData, respuestasData };
   }
 
 
-console.log('Cargando datos:', { kanjis, respuestas });
+console.log('Cargando datos:', { preguntas, respuestas });
 
 const Reading = () => {
-    const { kanjisData, respuestasData } = useLoaderData() || {};
-    console.log('Datos cargados:', { kanjisData, respuestasData });
-    if (!kanjisData || !respuestasData) {
+    const { preguntasData, respuestasData } = useLoaderData() || {};
+    console.log('Datos cargados:', { preguntasData, respuestasData });
+    if (!preguntasData || !respuestasData) {
         return <p>Cargando datos...</p>;
       }
   return (
     <>
     <div >
     <Preguntas
-    className=' pt-20'
-      preguntaData={kanjisData} 
+    className=" pt-20 "
+      preguntaData={preguntasData} 
       respuestasData={respuestasData} 
       TextoPregunta="¿Cuál es la respuesta correcta?"
-      nombrePregunta="kanji"
+      nombrePregunta="pregunta"
+      colorUno="bg-rosaUno"
+      colorDos="bg-rosaDos"
     />
     </div>
     </>

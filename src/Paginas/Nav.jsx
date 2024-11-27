@@ -13,9 +13,11 @@ const Nav = () => {
     <>
       <nav className=' lg:flex m-2 text-lg'>
         <div className='flex justify-between'>
-        
+           <Link to="/">
+           <div className="relative w-20 h-20">
           <img src="/images/olas2.gif" alt="chuu" className=' lg:ml-40 h-20 w-20 rounded-full border-2 border-white' />
-        
+          </div>
+          </Link>
         <div className="block lg:hidden h-20 w-20">
           <button onClick={toggleMenu} className=" px-3 py-2 border rounded text-teal-200 border-black hover:text-white hover:border-white">
             <img src="/burger.png" alt="" />
@@ -24,8 +26,9 @@ const Nav = () => {
         </div>
 
         <div className={`lg:flex m-2 w-full justify-around self-center  ${openMenu ? 'block' : 'hidden'} `}>        <div className='flex  m-2 lg:w-2/4 justify-around flex-col lg:flex-row'>
-          <a href="">PARTE 1</a>
-          <Link to="/reading">Reading</Link>
+          
+          <Link to="/vocabulario">げんごちしき（もじ・ごい</Link>
+          <Link to="/reading">文法</Link>
           <a href="">PARTE 3</a>
           <a href="">PARTE 3</a>
           <a href="">PARTE 3</a>

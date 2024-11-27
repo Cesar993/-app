@@ -7,6 +7,7 @@ import './index.css'
 import Index, {loader as kanjiLoader} from './Paginas/Index'
 import FrontEnd from './Paginas/FrontEnd'
 import Reading, { loader as readingLoader } from './Paginas/Reading'
+import { Home } from './Paginas/Home'
 
 
 const router = createBrowserRouter(
@@ -18,12 +19,17 @@ const router = createBrowserRouter(
         {
           index: true,
           loader: kanjiLoader,
-          element: <Index/>
+          element: <Home/>
         },
         {
           path:'reading',
           loader: readingLoader,
           element: <Reading/>
+        },
+        {
+          path:'vocabulario',
+          loader: kanjiLoader,
+          element: <Index/>
         }
       ]
     }

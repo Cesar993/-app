@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Alert from '../components/alert';
 import Mensaje from '../components/Mensaje';
 
-const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta, className }) => {
+const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta, className, colorUno, colorDos }) => {
 
 
   const [preguntaIndex, setPreguntaIndex] = useState(0);
@@ -61,8 +61,8 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
         {finalizado ? (
           <Mensaje />
         ) : (
-          <div className='h-60 bg-lime-E8EFEE flex flex-col justify-start w-3/4 mb-8'>
-            <div className='h-40 bg-lime-dark w-full'>
+          <div className={`h-60 ${colorDos} flex flex-col justify-start w-3/4 mb-8`}>
+            <div className={`h-40 ${colorUno} w-full`}>
               <h1 className='m-2 text-zinc-50'>質問 {preguntaActual?.id}°</h1>
               <h2 className='m-2 text-zinc-50'>漢字何でしょう？</h2>
               <div>
@@ -90,7 +90,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
                 ))}
               </div>
             </div>
-            <button onClick={handleCambiarPregunta} className='bg-lime-dark text-white'>
+            <button onClick={handleCambiarPregunta} className={`${colorUno} text-white`}>
               Comprobar
             </button>
             {alert && (
