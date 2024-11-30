@@ -31,8 +31,8 @@ const kanjis = [
 
   //もんだい 5
   { id: 19, kanji: "るす" },
-  { id: 20, kanji: "おさらをおとして、（わって）しまいました。" },
-  { id: 21, kanji: "じゅぎょうに（ちこく）してすみません。" },
+  { id: 20, kanji: "わって" },
+  { id: 21, kanji: "ちこく"},
 
 
   // Nuevas preguntas

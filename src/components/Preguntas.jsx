@@ -13,7 +13,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
   const preguntaActual = preguntaData[preguntaIndex];
   const [correctas, setCorrectas] = useState(0);
   const totalPregunta = preguntaData.length;
-
+  const [explicacionActual, setExplicacionActual] = useState(null);
 
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
         }
         setRespuestaCorrecta(null);
         setAlert(null);
-      }, 2000);
+      }, 8000);
     } else {
       setAlert({ correcta: 'false' });
       setTimeout(() => {
@@ -48,13 +48,16 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
     }
   };
 
-  const handleChange = (e) => {
+  
+  const handleChange = (e, explicacion) => {
     setRespuestaCorrecta(e.target.value);
-  };
+    setExplicacionActual(explicacion);
+    console.log(explicacion)
+  }
 
   return (
     <section className= 'flex justify-center mb-10 mt-10 h-screen' >
-      <div className={`h-3/6 border-2 border-gray-300 w-3/4 flex flex-col items-center ${className}`}>
+      <div className={`h-4/6 border-2 border-gray-300 w-3/4 flex flex-col items-center ${className}`}>
         <div>
           <h1>Correctas {correctas} de {totalPregunta}</h1>
         </div>
@@ -83,7 +86,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
                       className='m-4'
                       value={respuesta.correcta}
                       name='respuesta'
-                      onChange={handleChange}
+                      onChange={(e) => handleChange(e, respuesta.explicacion)}
                     />
                     {respuesta.respuesta}
                   </label>
@@ -95,7 +98,10 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
             </button>
             {alert && (
               alert.correcta === 'true' ? (
+                <>
                 <Alert textoTitulo="¡Muy Bien!" texto="Respuesta correcta" color="lime" />
+                <p className='p-2'>{explicacionActual}</p>
+                </>
               ) : (
                 <Alert textoTitulo="¡Muy Mal!" texto="Respuesta incorrecta" color="red" />
               )

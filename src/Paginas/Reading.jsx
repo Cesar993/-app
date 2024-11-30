@@ -24,7 +24,7 @@ const Reading = () => {
     <>
     <div >
     <Preguntas
-    className=" pt-20 "
+    className=" flex justify-center"
       preguntaData={preguntasData} 
       respuestasData={respuestasData} 
       TextoPregunta="¿Cuál es la respuesta correcta?"
