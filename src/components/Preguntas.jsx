@@ -22,6 +22,11 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
         (respuesta) => respuesta[nombrePregunta + '_id'] === preguntaActual.id
       );
       setRespuestasMezcladas(respuestasFiltradas.sort(() => Math.random() - 0.5));
+      const explFiltrada = respuestasFiltradas.find(
+        (respuesta) => respuesta.correcta === true
+      )
+      console.log('hola',explFiltrada.explicacion)
+      setExplicacionActual(explFiltrada.explicacion)
     }
   }, [preguntaActual, respuestasData, nombrePregunta]);
 
@@ -29,34 +34,32 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
     if (respuestaCorrecta === 'true') {
       setAlert({ correcta: 'true' });
       setCorrectas(correctas + 1);
-
-      setTimeout(() => {
-        if (preguntaIndex + 1 < preguntaData.length) {
-          setPreguntaIndex(preguntaIndex + 1);
-        } else {
-          setFinalizado(true);
-        }
-        setRespuestaCorrecta(null);
-        setAlert(null);
-      }, 8000);
+    
     } else {
       setAlert({ correcta: 'false' });
-      setTimeout(() => {
-        setRespuestaCorrecta(null);
-        setAlert(null);
-      }, 1000);
+      setRespuestaCorrecta(null);
+      
     }
   };
 
-  
+
   const handleChange = (e, explicacion) => {
     setRespuestaCorrecta(e.target.value);
-    setExplicacionActual(explicacion);
+    
     console.log(explicacion)
   }
 
+  const siguientePregunta = () =>{
+    if (preguntaIndex + 1 < preguntaData.length) {
+      setPreguntaIndex(preguntaIndex + 1);
+    } else {
+      setFinalizado(true);
+    }
+    setAlert(null)
+  }
+
   return (
-    <section className= 'flex justify-center mb-10 mt-10 h-screen' >
+    <section className='flex justify-center mb-10 mt-10 h-screen' >
       <div className={`h-4/6 border-2 border-gray-300 w-3/4 flex flex-col items-center ${className}`}>
         <div>
           <h1>Correctas {correctas} de {totalPregunta}</h1>
@@ -64,9 +67,9 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
         {finalizado ? (
           <Mensaje />
         ) : (
-          <div className={`h-60 ${colorDos} flex flex-col justify-start w-3/4 mb-8`}>
-            <div className={`h-40 ${colorUno} w-full`}>
-              <h1 className='m-2 text-zinc-50'>質問 {preguntaActual?.id}°</h1>
+          <div className={`h-auto ${colorDos} flex flex-col justify-start w-3/4 mb-8`}>
+            <div className={`h-auto ${colorUno} w-full`}>
+              <h1 className='m-2 text-zinc-50'>質問 {preguntaIndex + 1 }°</h1>
               <h2 className='m-2 text-zinc-50'>漢字何でしょう？</h2>
               <div>
                 {preguntaActual ? (
@@ -99,13 +102,25 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
             {alert && (
               alert.correcta === 'true' ? (
                 <>
-                <Alert textoTitulo="¡Muy Bien!" texto="Respuesta correcta" color="lime" />
-                <p className='p-2'>{explicacionActual}</p>
+                  <Alert textoTitulo="¡Muy Bien!" texto={explicacionActual} color="lime" />
+                  
                 </>
               ) : (
-                <Alert textoTitulo="¡Muy Mal!" texto="Respuesta incorrecta" color="red" />
+                <>
+                <Alert textoTitulo="¡Muy Mal!" texto={explicacionActual} color="red" />
+                
+                </>
               )
             )}
+        <div className='flex justify-end pt-6 bg-white'>
+
+          <button
+            className={`${colorUno} text-white w-24 h-8 rounded-2xl `}
+            
+            onClick={siguientePregunta}>
+
+            Siguiente</button>
+        </div>
           </div>
         )}
       </div>

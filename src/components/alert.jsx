@@ -8,6 +8,7 @@ const alert = ({textoTitulo, texto, color}) => {
     return (
         <div className={`${colors[color]} border px-4 py-3 rounded relative`} role="alert">
             <strong className="font-bold">{textoTitulo}</strong>
+            <br />
             <span className="block sm:inline">{texto}</span>
 
         </div>

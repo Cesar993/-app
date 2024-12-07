@@ -3,11 +3,11 @@ import { kanjis, respuestas } from '../datos/datos'
 import { useEffect, useState } from 'react';
 import Alert from '../components/alert';
 import Mensaje from '../components/Mensaje';
-
+import _ from 'lodash';
 
 
 export function loader() {
-  const kanjisData = kanjis;
+  const kanjisData = _.shuffle(kanjis);
   const respuestasData = respuestas;
   return { kanjisData, respuestasData };
 }
@@ -101,8 +101,8 @@ const { kanjisData, respuestasData } = useLoaderData() || [];
           {finalizado ? (
             <Mensaje />
           ) : (
-            <div className='h-60 bg-lime-E8EFEE flex flex-col justify-left w-3/4 align-top mb-8'>
-              <div className='h-40 bg-lime-dark w-full'>
+            <div className='h-auto bg-lime-E8EFEE flex flex-col justify-left w-3/4 align-top mb-8'>
+              <div className='h-auto bg-lime-dark w-full'>
                 <h1 className='m-2 text-zinc-50'>質問  {kanjiActual.id}°</h1>
                 <h2 className='m-2 text-zinc-50'>漢字何でしょう？</h2>
                 <div>

@@ -3,10 +3,10 @@ import { useLoaderData } from 'react-router-dom';
 import Preguntas from '../components/Preguntas';
 
 import { preguntas, respuestas } from '../datos/datosBunpo';
-
+import _ from 'lodash';
 
 export function loader() {
-    const preguntasData = preguntas;
+    const preguntasData = _.shuffle(preguntas);
     const respuestasData = respuestas;
     return { preguntasData, respuestasData };
   }
@@ -15,6 +15,10 @@ export function loader() {
 console.log('Cargando datos:', { preguntas, respuestas });
 
 const Reading = () => {
+
+  
+
+
     const { preguntasData, respuestasData } = useLoaderData() || {};
     console.log('Datos cargados:', { preguntasData, respuestasData });
     if (!preguntasData || !respuestasData) {
