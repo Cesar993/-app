@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'lime-E8EFEE': '#E8EFEE',
-        'lime-dark':'#15393E',
-        'rosaUno': '#E39EC3',
-        'rosaDos': '#fdeaf2',
+        'limeUno':'#E8EFEE',
+        'limeDos':'#15393E',
+        'rosaUno':'#E39EC3',
+        'rosaDos':'#fdeaf2',
 
 
       },

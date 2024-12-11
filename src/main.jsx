@@ -4,7 +4,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 
 
 import './index.css'
-import Index, {loader as kanjiLoader} from './Paginas/Index'
+import Moji, {loader as kanjiLoader} from './Paginas/Moji'
 import FrontEnd from './Paginas/FrontEnd'
 import Reading, { loader as readingLoader } from './Paginas/Reading'
 import { Home } from './Paginas/Home'
@@ -29,7 +29,7 @@ const router = createBrowserRouter(
         {
           path:'vocabulario',
           loader: kanjiLoader,
-          element: <Index/>
+          element: <Moji/>
         }
       ]
     }

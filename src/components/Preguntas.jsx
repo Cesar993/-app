@@ -10,12 +10,13 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
   const [alert, setAlert] = useState(null);
   const [finalizado, setFinalizado] = useState(false);
   const [respuestasMezcladas, setRespuestasMezcladas] = useState([]);
-  const preguntaActual = preguntaData[preguntaIndex];
   const [correctas, setCorrectas] = useState(0);
-  const totalPregunta = preguntaData.length;
   const [explicacionActual, setExplicacionActual] = useState(null);
-
-
+  const [disable, setDisable] = useState(false)
+  
+  const preguntaActual = preguntaData[preguntaIndex];
+  const totalPregunta = preguntaData.length;
+  
   useEffect(() => {
     if (preguntaActual) {
       const respuestasFiltradas = respuestasData.filter(
@@ -40,6 +41,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
       setRespuestaCorrecta(null);
       
     }
+    setDisable(true)
   };
 
 
@@ -56,6 +58,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
       setFinalizado(true);
     }
     setAlert(null)
+    setDisable(false)
   }
 
   return (
@@ -67,11 +70,11 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
         {finalizado ? (
           <Mensaje />
         ) : (
-          <div className={`h-auto ${colorDos} flex flex-col justify-start w-3/4 mb-8`}>
-            <div className={`h-auto ${colorUno} w-full`}>
+          <div className={`h-3/4 ${colorDos} flex flex-col justify-start w-3/4 mb-8`}>
+            <div className={`h-auto ${colorUno} w-full flex flex-col justify-center pb-4`}>
               <h1 className='m-2 text-zinc-50'>質問 {preguntaIndex + 1 }°</h1>
               <h2 className='m-2 text-zinc-50'>漢字何でしょう？</h2>
-              <div>
+              <div className='h-auto'>
                 {preguntaActual ? (
                   <h1 className='text-zinc-50 m-2'>{preguntaActual[nombrePregunta]}</h1>
                 ) : (
@@ -79,7 +82,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
                 )}
               </div>
             </div>
-            <div>
+            <div className='h-auto mb-5'>
               <h1 className='m-2'>{TextoPregunta}</h1>
               <div className='grid grid-cols-2 gap-4 w-3/4 ml-10'>
                 {respuestasMezcladas.map((respuesta) => (
@@ -96,7 +99,12 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
                 ))}
               </div>
             </div>
-            <button onClick={handleCambiarPregunta} className={`${colorUno} text-white`}>
+            <button onClick={handleCambiarPregunta} 
+            disabled={disable} 
+              className={`
+                ${colorUno} text-white 
+              ${disable ? 'cursor-not-allowed' : ''}`}
+              >
               Comprobar
             </button>
             {alert && (
@@ -112,7 +120,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
                 </>
               )
             )}
-        <div className='flex justify-end pt-6 bg-white'>
+        <div className='flex justify-end pt-6 bg-white h-36'>
 
           <button
             className={`${colorUno} text-white w-24 h-8 rounded-2xl `}
