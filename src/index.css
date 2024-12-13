@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer utilities {
+    
+    .rounded-edge {
+    height: 200px;
+    
+    clip-path: ellipse(90% 100% at 50% 100%);
+    background: #8a061a80;
+  }
+  }
