@@ -8,6 +8,7 @@ import Moji, {loader as kanjiLoader} from './Paginas/Moji'
 import FrontEnd from './Paginas/FrontEnd'
 import Reading, { loader as readingLoader } from './Paginas/Reading'
 import { Home } from './Paginas/Home'
+import Material from './Paginas/Material'
 
 
 const router = createBrowserRouter(
@@ -30,7 +31,11 @@ const router = createBrowserRouter(
           path:'vocabulario',
           loader: kanjiLoader,
           element: <Moji/>
-        }
+        },
+        {
+          path:'material',
+          element: <Material/>
+        },
       ]
     }
   ]

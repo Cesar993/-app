@@ -11,7 +11,8 @@ const Nav = () => {
   } 
   return (
     <>
-      <nav className=' lg:flex m-2 text-lg'>
+    
+      <nav className= 'lg:flex  text-lg bg-rosaTres rounded-b-xl'>
         <div className='flex justify-between'>
            <Link to="/">
            <div className="relative w-20 h-20">
@@ -25,14 +26,14 @@ const Nav = () => {
         </div>
         </div>
 
-        <div className={`lg:flex m-2 w-full  justify-center self-center ${openMenu ? 'block' : 'hidden'} `}>        
+        <div className={`lg:flex m-2 w-full font-space justify-center self-center ${openMenu ? 'block' : 'hidden'} `}>        
           <div className='flex  m-2 lg:w-2/4 justify-around flex-col lg:flex-row '>
           
-          <Link to="/vocabulario">げんごちしき（もじ・ごい</Link>
+          <Link to="/vocabulario">げんごちしき（もじ・ごい）</Link>
           <Link to="/reading">文法</Link>
-          <a href="">PARTE 3</a>
-          <a href="">PARTE 3</a>
-          <a href="">PARTE 3</a>
+          <a href="">言語知識</a>
+          <Link to="/material">Material</Link>
+          <a href="">Recursos Visuales</a>
         </div>
         </div>
         {/* <div className='flex lg:w-1/4 self-center justify-center'>
