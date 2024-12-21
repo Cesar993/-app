@@ -33,7 +33,8 @@ const Nav = () => {
           <Link to="/reading">文法</Link>
           <a href="">言語知識</a>
           <Link to="/material">Material</Link>
-          <a href="">Recursos Visuales</a>
+          <Link to="/recursosVisuales">Recursos Visuales</Link>
+          
         </div>
         </div>
         {/* <div className='flex lg:w-1/4 self-center justify-center'>

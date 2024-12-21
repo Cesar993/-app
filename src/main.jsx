@@ -9,6 +9,7 @@ import FrontEnd from './Paginas/FrontEnd'
 import Reading, { loader as readingLoader } from './Paginas/Reading'
 import { Home } from './Paginas/Home'
 import Material, {loader as loaderMaterial} from './Paginas/Material'
+import Visuales , {loader as loaderVisuales} from './Paginas/Visuales'
 
 
 const router = createBrowserRouter(
@@ -36,6 +37,11 @@ const router = createBrowserRouter(
           path:'material',
           loader: loaderMaterial,
           element: <Material/>
+        },
+        {
+          path:'recursosVisuales',
+          loader: loaderVisuales,
+          element: <Visuales/>
         },
       ]
     }
