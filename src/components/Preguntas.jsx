@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Alert from '../components/alert';
 import Mensaje from '../components/Mensaje';
 
@@ -13,10 +13,11 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
   const [correctas, setCorrectas] = useState(0);
   const [explicacionActual, setExplicacionActual] = useState(null);
   const [disable, setDisable] = useState(false)
-  
+
+
   const preguntaActual = preguntaData[preguntaIndex];
   const totalPregunta = preguntaData.length;
-  
+
   useEffect(() => {
     if (preguntaActual) {
       const respuestasFiltradas = respuestasData.filter(
@@ -26,32 +27,49 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
       const explFiltrada = respuestasFiltradas.find(
         (respuesta) => respuesta.correcta === true
       )
-      console.log('hola',explFiltrada.explicacion)
+      console.log('hola', explFiltrada.explicacion)
       setExplicacionActual(explFiltrada.explicacion)
     }
   }, [preguntaActual, respuestasData, nombrePregunta]);
+
+
+  //audio
+
+  const audioRef = useRef(null);
 
   const handleCambiarPregunta = () => {
     if (respuestaCorrecta === 'true') {
       setAlert({ correcta: 'true' });
       setCorrectas(correctas + 1);
-    
+      reproducirSonido('audio/succ.mp3');
+      
+
     } else {
       setAlert({ correcta: 'false' });
       setRespuestaCorrecta(null);
+      reproducirSonido('audio/hoihoi.mp3');
       
     }
     setDisable(true)
   };
 
+const reproducirSonido = (rutaAudio) => {
+    if (audioRef.current) {
+      audioRef.current.src = rutaAudio;
+      console.log(rutaAudio)
+      audioRef.current.play().catch(error => {
+        console.error('Error al reproducir el audio:', error);
+      });
+    }
+}
 
   const handleChange = (e, explicacion) => {
     setRespuestaCorrecta(e.target.value);
-    
+
     console.log(explicacion)
   }
 
-  const siguientePregunta = () =>{
+  const siguientePregunta = () => {
     if (preguntaIndex + 1 < preguntaData.length) {
       setPreguntaIndex(preguntaIndex + 1);
     } else {
@@ -72,7 +90,7 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
         ) : (
           <div className={`h-3/4 ${colorDos} flex flex-col justify-start w-3/4 mb-8`}>
             <div className={`h-auto ${colorUno} w-full flex flex-col justify-center pb-4`}>
-              <h1 className='m-2 text-zinc-50'>質問 {preguntaIndex + 1 }°</h1>
+              <h1 className='m-2 text-zinc-50'>質問 {preguntaIndex + 1}°</h1>
               <h2 className='m-2 text-zinc-50'>漢字何でしょう？</h2>
               <div className='h-auto'>
                 {preguntaActual ? (
@@ -99,38 +117,40 @@ const Preguntas = ({ preguntaData, respuestasData, TextoPregunta, nombrePregunta
                 ))}
               </div>
             </div>
-            <button onClick={handleCambiarPregunta} 
-            disabled={disable} 
+            <button onClick={handleCambiarPregunta}
+              disabled={disable}
               className={`
                 ${colorUno} text-white 
               ${disable ? 'cursor-not-allowed' : ''}`}
-              >
+            >
               Comprobar
             </button>
             {alert && (
               alert.correcta === 'true' ? (
                 <>
                   <Alert textoTitulo="¡Muy Bien!" texto={explicacionActual} color="lime" />
-                  
+
                 </>
               ) : (
                 <>
-                <Alert textoTitulo="¡Muy Mal!" texto={explicacionActual} color="red" />
-                
+                  <Alert textoTitulo="¡Muy Mal!" texto={explicacionActual} color="red" />
+
                 </>
               )
             )}
-        <div className='flex justify-end pt-6 bg-white h-36'>
+            <div className='flex justify-end pt-6 bg-white h-36'>
 
-          <button
-            className={`${colorUno} text-white w-24 h-8 rounded-2xl `}
-            
-            onClick={siguientePregunta}>
+              <button
+                className={`${colorUno} text-white w-24 h-8 rounded-2xl `}
 
-            Siguiente</button>
-        </div>
+                onClick={siguientePregunta}>
+
+                Siguiente</button>
+            </div>
           </div>
         )}
+        <audio ref={audioRef}/>
+        
       </div>
     </section>
   );
